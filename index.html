@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Time-sheet</title>
+    <!-- Firebase Reference -->
+    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+    <!--jQuery  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--Bootstrap CDN  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/ts.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Moment.js Reference -->    
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="jumbotron">
+            <h1 class="text-center">Time-sheet</h1>
+
+        </div>
+
+        <p class="subTitle">Employee</p>
+
+        <!-- Container for EMPLOYEE INFO -->
+        <div class="container">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>Role</th>
+                        <th>Start Date</th>
+                        <th>Months Worked</th>
+                        <th>Months Rate($)</th>
+                        <th>Total Billed($)</th>
+                    </tr>
+                </thead>
+                <tbody id="ts-table">
+                </tbody>
+            </table>
+        </div>
+
+        <p class="subTitle">Form</p>
+
+        <!-- Container for FORM -->
+        <div class="container">
+            <div class="form-group">
+                <label class="control-label" for="focusedInput">Employee Name</label>
+                <input class="form-control" id="focusedInput" type="text">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="disabledInput">Role</label>
+                <input class="form-control" id="disabledInput" type="text">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="inputWarning">Start Date (DD/MM/YY)</label>
+                <input type="text" class="form-control" id="inputWarning">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" for="inputError">Monthly Rate</label>
+                <input type="text" class="form-control" id="inputError">
+            </div>
+
+            <div>
+                <button class="btn btn-primary" id="add">Submit</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="assets/javascript/ts.js"></script>
+
+</body>
+
+</html>

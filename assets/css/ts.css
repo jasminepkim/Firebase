@@ -1,0 +1,28 @@
+body {
+    background-color: white;
+}
+
+p.subTitle {
+    background-color: black;
+    margin: 0 auto;
+    margin-top: 40px;
+    color: white;
+    font-size: 30px;
+    padding: 20px;
+    width: 1170px;
+}
+
+.container {
+    border: 5px solid black; 
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+.btn-primary {
+    background-color: grey;
+    margin: 20px 0;
+}
+.jumbotron {
+    background-color: grey;
+    color: white;
+}
