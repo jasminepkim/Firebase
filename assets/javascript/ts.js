@@ -72,7 +72,7 @@ database.ref().on("child_added", function (snapshot) {
     console.log(freqMin);
 
     // Display the first train time in military time
-    var military = moment.unix(firstTrain).format("H, HH");
+    var military = moment(firstTrain).format("H, HH"); 
     console.log(military);
    
     // Calculate the time difference relative to the current time
@@ -86,9 +86,12 @@ database.ref().on("child_added", function (snapshot) {
     // append employee's data into the table
     $("#ts-table").append("<tr><td id='ts-name'>" + snapshot.val().name
     + "<td id='ts-dest'>" + snapshot.val().dest
+
+    // to display user input of frequency minutes
+    + "<td id='ts-minutes0'>" + snapshot.val().min 
+
     + "<td id='ts-military'>" + snapshot.val().military
     + "<td id='ts-current'>" + snapshot.val().currentTime
-    + "<td id='ts-minutes'>" + snapshot.val().min
     + "</td></tr>");
 
 
