@@ -21,27 +21,27 @@ $("#add.btn.btn-primary").on("click", function (event) {
     event.preventDefault();
 
     // grabs the userInput
-    var empName = $("#focusedInput").val().trim();
-    var empRole = $("#disabledInput").val().trim();
-    var empDate = $("#inputWarning").val().trim();
-    var empRate = $("#inputError").val().trim();
+    var trainName = $("#focusedInput").val().trim();
+    var trainDest = $("#disabledInput").val().trim();
+    var firstTrain = $("#inputWarning").val().trim();
+    var freqMin = $("#inputError").val().trim();
 
     // Creates local "temporary" object for holding employee data
-    var newEmp = {
-        employeeName: empName,
-        role: empRole,
-        sDate: empDate,
-        mRate: empRate
+    var newTrain = {
+        name: trainName,
+        dest: trainDest,
+        time: firstTrain,
+        min: freqMin
     }
 
     // Uploads employee data to the database
-    database.ref().push(newEmp);
+    database.ref().push(newTrain);
 
     // Logs everything to console
-    console.log(newEmp.employeeName);
-    console.log(newEmp.role);
-    console.log(newEmp.sDate);
-    console.log(newEmp.mRate);
+    console.log(newTrain.name);
+    console.log(newTrain.dest);
+    console.log(newTrain.time);
+    console.log(newTrain.min);
 
     // Alert
     alert("CHOO CHOO successfully added");
@@ -60,35 +60,35 @@ database.ref().on("child_added", function (snapshot) {
     console.log(snapshot.val());
 
     // Store the new details of the employee into a variable
-    var empName = snapshot.val().employeeName;
-    var empRole = snapshot.val().role;
-    var empDate = snapshot.val().sDate;
-    var empRate = snapshot.val().mRate;
+    var trainName = snapshot.val().name;
+    var trainDest = snapshot.val().dest;
+    var firstTrain = snapshot.val().time;
+    var freqMin = snapshot.val().min;
 
     // Log everything that's coming out of snapshot
-    console.log(empName);
-    console.log(empRole);
-    console.log(empDate);
-    console.log(empRate);
+    console.log(trainName);
+    console.log(trainDest);
+    console.log(firstTrain);
+    console.log(freqMin);
 
-    // Prettify the employee start
-    var pretty = moment.unix(empDate).format("H, HH");
-    console.log(pretty);
+    // Display the first train time in military time
+    var military = moment.unix(firstTrain).format("H, HH");
+    console.log(military);
    
-    // Calculate the months worked using multiplication
-    var months = moment().diff(moment.unix(empDate, "X"), "months");
-    console.log(months);
+    // Calculate the time difference relative to the current time
+    var currentTime = moment().diff(moment.unix(firstTrain, "X"), "minutes");
+    console.log(currentTime);
 
     // Calculate the total billed rated
-    var billed = months * empRate;
-    console.log(billed);
+    var minutesAway = currentTime - minutesAway;
+    console.log(minutesAway);
 
     // append employee's data into the table
-    $("#ts-table").append("<tr><td id='ts-name'>" + snapshot.val().employeeName
-    + "<td id='ts-role'>" + snapshot.val().role
-    + "<td id='ts-pretty'>" + snapshot.val().pretty
-    + "<td id='ts-months'>" + snapshot.val().months
-    + "<td id='ts-rate'>" + snapshot.val().mRate
+    $("#ts-table").append("<tr><td id='ts-name'>" + snapshot.val().name
+    + "<td id='ts-dest'>" + snapshot.val().dest
+    + "<td id='ts-military'>" + snapshot.val().military
+    + "<td id='ts-current'>" + snapshot.val().currentTime
+    + "<td id='ts-minutes'>" + snapshot.val().min
     + "</td></tr>");
 
 
