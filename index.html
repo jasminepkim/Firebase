@@ -12,30 +12,30 @@
     <link rel="stylesheet" href="assets/css/ts.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Moment.js Reference -->    
-    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.18.1/moment.min.js"></script>
 
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="jumbotron">
-            <h1 class="text-center">Time-sheet</h1>
+            <h1 class="text-center">Train Schedule</h1>
+            <h3 class="text-center">Choo Choo</h3>
 
         </div>
 
-        <p class="subTitle">Employee</p>
+        <p class="subTitle">Current Train Schedule</p>
 
         <!-- Container for EMPLOYEE INFO -->
         <div class="container">
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Employee Name</th>
-                        <th>Role</th>
-                        <th>Start Date</th>
-                        <th>Months Worked</th>
-                        <th>Months Rate($)</th>
-                        <th>Total Billed($)</th>
+                        <th>Train Name</th>
+                        <th>Destination</th>
+                        <th>Frequency (Minutes)</th>
+                        <th>Next Arrival</th>
+                        <th>Minutes Away</th>
                     </tr>
                 </thead>
                 <tbody id="ts-table">
@@ -43,27 +43,27 @@
             </table>
         </div>
 
-        <p class="subTitle">Form</p>
+        <p class="subTitle">Add Train</p>
 
         <!-- Container for FORM -->
         <div class="container">
             <div class="form-group">
-                <label class="control-label" for="focusedInput">Employee Name</label>
+                <label class="control-label" for="focusedInput">Train Name</label>
                 <input class="form-control" id="focusedInput" type="text">
             </div>
 
             <div class="form-group">
-                <label class="control-label" for="disabledInput">Role</label>
+                <label class="control-label" for="disabledInput">Destination</label>
                 <input class="form-control" id="disabledInput" type="text">
             </div>
 
             <div class="form-group">
-                <label class="control-label" for="inputWarning">Start Date (DD/MM/YY)</label>
+                <label class="control-label" for="inputWarning">First Train Time (HH:MM - Military Time)</label>
                 <input type="text" class="form-control" id="inputWarning">
             </div>
 
             <div class="form-group">
-                <label class="control-label" for="inputError">Monthly Rate</label>
+                <label class="control-label" for="inputError">Frequency (Minutes)</label>
                 <input type="text" class="form-control" id="inputError">
             </div>
 

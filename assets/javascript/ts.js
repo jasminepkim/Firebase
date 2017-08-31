@@ -44,7 +44,7 @@ $("#add.btn.btn-primary").on("click", function (event) {
     console.log(newEmp.mRate);
 
     // Alert
-    alert("Employee successfully added");
+    alert("CHOO CHOO successfully added");
 
     // Clears all of the text-boxes
     $("#focusedInput").val("");
@@ -72,7 +72,8 @@ database.ref().on("child_added", function (snapshot) {
     console.log(empRate);
 
     // Prettify the employee start
-    var pretty = moment.unix(empDate).format("MM/DD/YY");
+    var pretty = moment.unix(empDate).format("H, HH");
+    console.log(pretty);
    
     // Calculate the months worked using multiplication
     var months = moment().diff(moment.unix(empDate, "X"), "months");
@@ -83,12 +84,11 @@ database.ref().on("child_added", function (snapshot) {
     console.log(billed);
 
     // append employee's data into the table
-    $("#ts-table").append("<tr><td id='ts-name'>" + snapshot.val().empName
-    + "<td id='ts-role'>" + snapshot.val().empRole
+    $("#ts-table").append("<tr><td id='ts-name'>" + snapshot.val().employeeName
+    + "<td id='ts-role'>" + snapshot.val().role
     + "<td id='ts-pretty'>" + snapshot.val().pretty
     + "<td id='ts-months'>" + snapshot.val().months
-    + "<td id='ts-rate'>" + snapshot.val().empRate
-    + "<td id='ts-billed'>" + snapshot.val().billed
+    + "<td id='ts-rate'>" + snapshot.val().mRate
     + "</td></tr>");
 
 
@@ -96,17 +96,3 @@ database.ref().on("child_added", function (snapshot) {
 }, function (errorObject) {
     console.log("Errors handled: " + errorObject.code);
 });
-
-// database.ref().orderByChild("dataAdded").limitToLast(1).on("child_added", function (snapshot) {
-
-//     // Change the HTML to reflect
-//     $("#ts-name").html(snapshot.val().empName);
-//     $("#ts-role").html(snapshot.val().empRole);
-//     $("#ts-pretty").html(snapshot.val().pretty);
-//     $("#ts-months").html(snapshot.val().months);
-//     $("#ts-rate").html(snapshot.val().empRate);
-//     $("#ts-billed").html(snapshot.val().billed);
-
-// });
-
-// });
