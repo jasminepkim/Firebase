@@ -1,28 +1,36 @@
 body {
-    background-color: white;
+    background-color: #F0F4F6;
+    margin: 0 auto;
+    font-family: 'Gentium Book Basic', serif;
 }
 
 p.subTitle {
-    background-color: black;
-    margin: 0 auto;
+    background-color: #4B4848;
     margin-top: 40px;
     color: white;
     font-size: 30px;
     padding: 20px;
-    width: 1170px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 .container {
     border: 5px solid black; 
-    margin: 0 auto;
     padding-top: 20px;
+    margin: 0 auto;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .btn-primary {
-    background-color: grey;
-    margin: 20px 0;
+    background-color: #209DF8;
+    margin: 20px 0px;
 }
 .jumbotron {
-    background-color: grey;
     color: white;
+    margin-top: 20px;
+    background-image: url("../images/train.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
 }

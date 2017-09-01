@@ -1,37 +1,43 @@
 // Initialize Firebase
- var config = {
+var config = {
     apiKey: "AIzaSyDCu5Sln8EMZLXsvpvSXbTP4Z51Pdhh3vk",
     authDomain: "time-sheet-083117.firebaseapp.com",
     databaseURL: "https://time-sheet-083117.firebaseio.com",
     projectId: "time-sheet-083117",
     storageBucket: "",
     messagingSenderId: "643259474288"
-  };
+};
 
 firebase.initializeApp(config);
 
 var database = firebase.database();
 
-// Button for adding Employees
-$("#add.btn.btn-primary").on("click", function (event) {
+// Variables to call globally
+var trainName;
+var trainDest;
+var firstTrain;
+var freqMin;
+var nextTrain;
+var minAway;
 
-    alert("It works!!!");
+// Button for adding Employees
+$("#add.btn.btn-primary").on("click", function () {
 
     // Don't refresh the page!
     event.preventDefault();
 
-    // grabs the userInput
+    // grabs the user input
     var trainName = $("#focusedInput").val().trim();
     var trainDest = $("#disabledInput").val().trim();
     var firstTrain = $("#inputWarning").val().trim();
     var freqMin = $("#inputError").val().trim();
 
-    // Creates local "temporary" object for holding employee data
+    // Creates local "temporary" object for holding train data
     var newTrain = {
         name: trainName,
         dest: trainDest,
         time: firstTrain,
-        min: freqMin
+        min: freqMin,
     }
 
     // Uploads employee data to the database
@@ -43,8 +49,11 @@ $("#add.btn.btn-primary").on("click", function (event) {
     console.log(newTrain.time);
     console.log(newTrain.min);
 
-    // Alert
-    alert("CHOO CHOO successfully added");
+});
+
+// 3. Create Firebase event for adding train to the database and a row in the HTML
+//    when a user adds an entry
+database.ref().on("child_added", function (snapshot) {
 
     // Clears all of the text-boxes
     $("#focusedInput").val("");
@@ -52,14 +61,7 @@ $("#add.btn.btn-primary").on("click", function (event) {
     $("#inputWarning").val("");
     $("#inputError").val("");
 
-});
-
-// 3. Create Firebase event for adding employee to the database and a row in the html when a user adds an entry
-database.ref().on("child_added", function (snapshot) {
-
-    console.log(snapshot.val());
-
-    // Store the new details of the employee into a variable
+    // Store the new details of the train into a variable
     var trainName = snapshot.val().name;
     var trainDest = snapshot.val().dest;
     var firstTrain = snapshot.val().time;
@@ -71,31 +73,47 @@ database.ref().on("child_added", function (snapshot) {
     console.log(firstTrain);
     console.log(freqMin);
 
-    // Display the first train time in military time
-    var military = moment(firstTrain).format("H, HH"); 
-    console.log(military);
-   
-    // Calculate the time difference relative to the current time
-    var currentTime = moment().diff(moment.unix(firstTrain, "X"), "minutes");
-    console.log(currentTime);
+    // CALCULATE THE MINUTES AWAY UNTIL THE NEXT TRAIN
 
-    // Calculate the total billed rated
-    var minutesAway = currentTime - minutesAway;
-    console.log(minutesAway);
+    // if the next train equals the current moment, 
+    if (nextTrain = moment().format("HH:mm")) {
+
+        //then add nextTrain and freqMin
+        var same = nextTrain + freqMin;
+    } else {
+        // pushed back 1 year to make sure it comes before current time
+        var firstTimeConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
+        console.log(firstTimeConverted);
+
+        var current = moment();
+
+        // current moment less firstTimeConverted to find the difference
+        var diff = moment().diff(moment(firstTimeConverted, "minutes"));
+        console.log(diff);
+
+        // to find the differential modulo 
+        var remainder = diff % freqMin;
+        console.log(remainder);
+
+        // calculate actual minutes away
+        var minAway = freqMin - remainder;
+        console.log(minAway);
+
+        // the time the next train will arrive
+        var nextTrain = moment().add(minAway).format("minutes");
+    }
 
     // append employee's data into the table
-    $("#ts-table").append("<tr><td id='ts-name'>" + snapshot.val().name
-    + "<td id='ts-dest'>" + snapshot.val().dest
+    $("#ts-table").append("<tr><td id='ts-name'>" + trainName +
 
-    // to display user input of frequency minutes
-    + "<td id='ts-minutes0'>" + snapshot.val().min 
+        "<td id='ts-dest'>" + trainDest +
 
-    + "<td id='ts-military'>" + snapshot.val().military
-    + "<td id='ts-current'>" + snapshot.val().currentTime
-    + "</td></tr>");
+        // to display user input of frequency minutes
+        "<td id='ts-minutes'>" + freqMin +
 
+        "<td id='ts-nextarrival'>" + firstTrain +
 
-    // Handle the errors
-}, function (errorObject) {
-    console.log("Errors handled: " + errorObject.code);
+        "<td id='ts-current'>" + minAway +
+
+        "</td></tr>")
 });
