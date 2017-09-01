@@ -13,14 +13,14 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 // Variables to call globally
-var trainName;
-var trainDest;
-var firstTrain;
-var freqMin;
-var nextTrain;
-var minAway;
+var trainName = "";
+var trainDest = "";
+var firstTrain = "";
+var freqMin = "";
+var nextTrain = "";
+var minAway = "";
 
-// Button for adding Employees
+// Button for adding trains
 $("#add.btn.btn-primary").on("click", function () {
 
     // Don't refresh the page!
@@ -40,7 +40,7 @@ $("#add.btn.btn-primary").on("click", function () {
         min: freqMin,
     }
 
-    // Uploads employee data to the database
+    // Uploads train data to the database
     database.ref().push(newTrain);
 
     // Logs everything to console
@@ -76,16 +76,14 @@ database.ref().on("child_added", function (snapshot) {
     // CALCULATE THE MINUTES AWAY UNTIL THE NEXT TRAIN
 
     // if the next train equals the current moment, 
-    if (nextTrain = moment().format("HH:mm")) {
-
+        if (nextTrain === moment().format("HH:mm")) {
         //then add nextTrain and freqMin
-        var same = nextTrain + freqMin;
+        nextTrain + freqMin;
+
     } else {
         // pushed back 1 year to make sure it comes before current time
         var firstTimeConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
         console.log(firstTimeConverted);
-
-        var current = moment();
 
         // current moment less firstTimeConverted to find the difference
         var diff = moment().diff(moment(firstTimeConverted, "minutes"));
@@ -103,7 +101,7 @@ database.ref().on("child_added", function (snapshot) {
         var nextTrain = moment().add(minAway).format("minutes");
     }
 
-    // append employee's data into the table
+    // append train's data into the table
     $("#ts-table").append("<tr><td id='ts-name'>" + trainName +
 
         "<td id='ts-dest'>" + trainDest +
